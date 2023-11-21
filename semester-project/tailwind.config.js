@@ -15,10 +15,7 @@ module.exports = withMT({
   plugins: [],
 });
 
-
 // STARO
-
-
 
 //import type { Config } from 'tailwindcss'
 
