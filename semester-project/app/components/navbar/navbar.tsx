@@ -18,96 +18,74 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import * as All from "@heroicons/react/24/solid";
+import * as heroicons from "@heroicons/react/24/solid";
+import * as reacticonsFA6 from "react-icons/fa6"
+import * as reacticonsBI from "react-icons/bi"
+import * as reacticonsBS from "react-icons/bs"
 
 const shopItems = [
   {
     title: "Smartphones",
     description: "Find the perfect device for your needs.",
-    icon: All.DevicePhoneMobileIcon,
+    icon: heroicons.DevicePhoneMobileIcon,
   },
   {
     title: "Laptops And Computers",
     description: "Transform your workflow with a new device.",
-    icon: All.ComputerDesktopIcon,
+    icon: heroicons.ComputerDesktopIcon,
   },
   {
     title: "Home Appliances",
     description: "From knifes to fridges, we have it all.",
-    icon: All.QuestionMarkCircleIcon,
+    icon: reacticonsBI.BiFridge,
   },
   {
     title: "Audio and Headphones",
     description: "For the casual and the audiophile alike.",
-    icon: All.MusicalNoteIcon,
+    icon: heroicons.MusicalNoteIcon,
   },
   {
     title: "Wearable Technology",
     description: "Start living in the future with these devices.",
-    icon: All.QuestionMarkCircleIcon,
+    icon: reacticonsBS.BsSmartwatch,
   },
   {
     title: "Gaming devices",
-    description: "Singgle player or multiplayer, always stay on top.",
-    icon: All.QuestionMarkCircleIcon,
+    description: "Single player or multiplayer, always stay on top.",
+    icon: reacticonsFA6.FaGamepad,
   },
   {
     title: "Camera and Photography",
     description: "For taking both photos and breath.",
-    icon: All.CameraIcon,
+    icon: heroicons.CameraIcon,
   },
   {
     title: "Electronics Parts",
     description: "Replacement parts for your devices.",
-    icon: All.CpuChipIcon,
+    icon: heroicons.CpuChipIcon,
   },
 ];
 
 const techReviewsItems = [
   {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: All.SquaresPlusIcon,
+    title: "Tech News",
+    description: "Click here to find out the latest tech news.",
+    icon: reacticonsFA6.FaNewspaper,
   },
   {
-    title: "About Us",
-    description: "Meet and learn about our dedication",
-    icon: All.UserGroupIcon,
+    title: "Buying Guides",
+    description: "What to look for when buying a specific device.",
+    icon: reacticonsFA6.FaBook,
   },
   {
-    title: "Blog",
-    description: "Find the perfect solution for your needs.",
-    icon: All.Bars4Icon,
+    title: "How-to guides",
+    description: "Learn to make, repair and maintain your devices.",
+    icon: reacticonsFA6.FaHandshake,
   },
   {
-    title: "Services",
-    description: "Learn how we can help you achieve your goals.",
-    icon: All.SunIcon,
-  },
-  {
-    title: "Support",
-    description: "Reach out to us for assistance or inquiries",
-    icon: All.GlobeAmericasIcon,
-  },
-  {
-    title: "Contact",
-    description: "Find the perfect solution for your needs.",
-    icon: All.PhoneIcon,
-  },
-  {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: All.NewspaperIcon,
-  },
-  {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: All.RectangleGroupIcon,
-  },
-  {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: All.TagIcon,
+    title: "Budget-friendly options",
+    description: "For those who want to save some money.",
+    icon: reacticonsFA6.FaMoneyBillTrendUp,
   },
 ];
 
@@ -326,7 +304,7 @@ export default function NavbarWithMegaMenu() {
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
-          Material Tailwind
+          <span className="text-blue-600 font-extrabold">Anode</span>&<span className="text-amber-600 font-extrabold">Cathode</span>
         </Typography>
         <div className="hidden lg:block">
           <NavList />
