@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
+// TODO: USE CONTENTFUL
 const ProductSection = () => {
   const slides = [
     {

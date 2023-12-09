@@ -23,6 +23,7 @@ import * as reacticonsFA6 from "react-icons/fa6"
 import * as reacticonsBI from "react-icons/bi"
 import * as reacticonsBS from "react-icons/bs"
 
+// TODO: USE CONTENTFUL FOR TITLE AND DESCRIPTION
 const shopItems = [
   {
     title: "Smartphones",

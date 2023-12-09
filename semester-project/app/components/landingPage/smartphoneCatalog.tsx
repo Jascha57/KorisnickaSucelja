@@ -1,6 +1,8 @@
 'use client';
 import React, { useRef } from 'react';
 
+
+// TODO: USE CONTENTFUL
 const SmartphoneCatalog = () => {
   const smartphones = [
     { id: 1, name: 'Smartphone 1', description: 'Description for Smartphone 1', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png' },
