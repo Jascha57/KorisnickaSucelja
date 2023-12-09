@@ -1,11 +1,12 @@
 import React from 'react';
-import ProductSection from './components/productSection/productSection';
+import ProductSection from './components/landingPage/productSection';
+import CompanyCards from './components/landingPage/aboutUs';
 
 const Home = () => {
   return (
     <main className="container mx-auto p-4">
       <ProductSection />
-      {/* Other sections/content of the page */}
+      <CompanyCards />
     </main>
   );
 };
