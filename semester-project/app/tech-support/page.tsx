@@ -11,18 +11,11 @@ export const metadata: Metadata = {
   description: "Electronics in theory and practice",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  );
-}
+export default function TechSupport() {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-10">
+        <h1 className="text-3xl font-bold">Tech support page</h1>
+      </main>
+    );
+  }
+  
