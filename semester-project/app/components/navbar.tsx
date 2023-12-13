@@ -22,6 +22,8 @@ import * as heroicons from "@heroicons/react/24/solid";
 import * as reacticonsFA6 from "react-icons/fa6"
 import * as reacticonsBI from "react-icons/bi"
 import * as reacticonsBS from "react-icons/bs"
+import Link from "next/link";
+
 
 // TODO: USE CONTENTFUL FOR TITLE AND DESCRIPTION
 const shopItems = [
@@ -250,8 +252,8 @@ function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        href="/"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -261,8 +263,8 @@ function NavList() {
       <Shop />
       <TechReviews />
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        href="/tech-support/page.tsx"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -272,8 +274,8 @@ function NavList() {
         </ListItem>
       </Typography>
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        href="/community-forums/page.tsx"
         variant="small"
         color="blue-gray"
         className="font-medium"
