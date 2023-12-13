@@ -264,7 +264,7 @@ function NavList() {
       <TechReviews />
       <Typography
         as={Link}
-        href="/tech-support/page.tsx"
+        href="/tech-support"
         variant="small"
         color="blue-gray"
         className="font-medium"
