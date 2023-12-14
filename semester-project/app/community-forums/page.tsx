@@ -20,7 +20,8 @@ interface Pagination {
   page: number;
 }
 
-const BASE_API_URL = "https://jsonplaceholder.typicode.com";
+//const BASE_API_URL = "https://jsonplaceholder.typicode.com";
+const BASE_API_URL = "https://my-json-server.typicode.com";
 
 const getPosts = async (
   pagination: Pagination = {
@@ -29,7 +30,7 @@ const getPosts = async (
   }
 ): Promise<Post[]> => {
   const data = await fetch(
-    `${BASE_API_URL}/posts?_limit=${pagination.limit}&_page=${pagination.page}`
+    `${BASE_API_URL}//dmarti01/json_test/posts?_limit=${pagination.limit}&_page=${pagination.page}`
   );
   return data.json();
 };
@@ -59,7 +60,7 @@ export default async function Blog({
 
   return (
     <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-      <h1 className="text-3xl font-bold p-10">Blog Index Page</h1>
+      <h1 className="text-3xl font-bold p-10 text-black">Community Forums Page</h1>
 
       {_limit && _page && (
         <div className="flex items-baseline gap-8 pb-10">
@@ -118,7 +119,7 @@ export default async function Blog({
           <li key={post.id}>
             <Link href={`community-forums/${post.id.toString()}`}>
               <span className="text-2xl text-purple-500">
-                Post {post.title}
+                Topic {post.title}
               </span>
             </Link>
           </li>

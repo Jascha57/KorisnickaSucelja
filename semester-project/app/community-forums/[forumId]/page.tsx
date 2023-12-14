@@ -1,14 +1,13 @@
-
 import { Post } from "../page";
 
 interface Params {
   forumId: string;
 }
 
-const BASE_API_URL = "https://jsonplaceholder.typicode.com";
+const BASE_API_URL = "https://my-json-server.typicode.com";
 
 const getPost = async (id: string): Promise<Post> => {
-  const data = await fetch(`${BASE_API_URL}/posts/${id}`);
+  const data = await fetch(`${BASE_API_URL}/dmarti01/json_test/posts/${id}`);
   return data.json();
 };
 
