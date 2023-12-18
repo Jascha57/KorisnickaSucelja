@@ -70,7 +70,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 
-const SmartphoneCatalog = () => {
+const landingPageCatalog = () => {
   const space_id = "t4hj2gedy0mq";
   const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
 
@@ -181,9 +181,6 @@ const SmartphoneCatalog = () => {
                   <img src={item.image.url} alt={item.model} className="w-full h-40 object-cover mb-2 rounded-md" />
                   <h3 className="text-lg font-semibold mb-2 text-black">{item.model}</h3>
                   <p className="text-gray-500 mb-4">{item.description}</p>
-                  <a href="/" className="text-blue-500 hover:underline">
-                    View Details
-                  </a>
                 </div>
               ))}
             </div>
@@ -200,4 +197,4 @@ const SmartphoneCatalog = () => {
   );
 };
 
-export default SmartphoneCatalog;
+export default landingPageCatalog;
