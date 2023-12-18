@@ -6,8 +6,8 @@ export default function NotFound() {
         <h1>404</h1>
         <h2>OOOPS! This page is on a coffee break, probably sipping java with other rebellious pages. 
             While we send out a search party, enjoy the chaos. 
-            In the meantime, tell a joke or ponder life's great mysteries. 
-            If the page doesn't return, blame it on cosmic typos and consider this your internet scavenger hunt training.</h2>
+            In the meantime, tell a joke or ponder life&aposs great mysteries. 
+            If the page doesn&apost return, blame it on cosmic typos and consider this your internet scavenger hunt training.</h2>
             <p>Redirecting to the <Link href="/">Homepage</Link></p>
 
             <style jsx>{`
