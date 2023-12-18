@@ -64,7 +64,7 @@ export default function Page() {
   const [electronics, setElectronics] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  
+  const [filter, setFilter] = useState<string>('');
   
   async function fetchGraphQL(query: string) {
     return fetch(
@@ -116,6 +116,16 @@ export default function Page() {
     product.model.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  let displayedProducts = filteredProducts;
+
+  if (filter === 'Phone') {
+    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
+  } else if (filter === 'Console') {
+    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
+  } else if (filter === 'Chip') {
+    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
+  }
+
   return (
     <div className="container mx-auto px-4 my-5">
       <input
@@ -126,20 +136,35 @@ export default function Page() {
       />
 
       <div className="mb-4 flex justify-center">
-        <button className="mr-2 py-2 px-4 border rounded text-black">Filter 1</button>
-        <button className="mr-2 py-2 px-4 border rounded text-black">Filter 2</button>
-        <button className="py-2 px-4 border rounded text-black">Filter 3</button>
+        <button
+          className="mr-2 py-2 px-4 border rounded text-black"
+          onClick={() => setFilter(filter === 'Phone' ? '' : 'Phone')}
+        >
+          Phone
+        </button>
+        <button
+          className="mr-2 py-2 px-4 border rounded text-black"
+          onClick={() => setFilter(filter === 'Console' ? '' : 'Console')}
+        >
+          Console
+        </button>
+        <button
+          className="py-2 px-4 border rounded text-black"
+          onClick={() => setFilter(filter === 'Chip' ? '' : 'Chip')}
+        >
+          Chip
+        </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
+        {displayedProducts.length > 0 ? (
+          displayedProducts.map(product => (
             <Link href={`/shop/${product.sys.id}`} key={product.sys.id}>
               <div key={product.sys.id} className="border rounded p-4">
                 <img src={product.image.url} alt={product.model} className="w-full h-64 object-cover mb-4" />
                 <h2 className="text-lg font-semibold mb-2 text-black">{product.model}</h2>
                 <p className="text-gray-600">{product.description}</p>
-                <p className="text-gray-900 font-bold">{product.price}</p>
+                <p className="text-gray-900 font-bold">${product.price}</p>
               </div>
             </Link>
           ))
