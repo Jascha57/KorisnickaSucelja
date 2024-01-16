@@ -181,7 +181,7 @@ function TechReviews() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = techReviewsItems.map(
     ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+      <a href="/shop" key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}
