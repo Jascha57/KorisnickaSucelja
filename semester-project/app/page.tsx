@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <main className="container mx-auto p-4">
       <ProductSection />
-      <CompanyCards />
       <SmartphoneCatalog />
+      <CompanyCards />
     </main>
   );
 };

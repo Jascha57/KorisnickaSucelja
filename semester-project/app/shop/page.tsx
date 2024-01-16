@@ -18,6 +18,7 @@ const query = `
         description,
         price,
         model,
+        __typename,
       }
     }
     gamingDevicesCollection{
@@ -30,6 +31,7 @@ const query = `
         description,
         price,
         model,
+        __typename,
       }
     }
     smartphonesCollection{
@@ -41,8 +43,69 @@ const query = `
         description,
         price,
         model,
+        __typename,
       }
     }
+  audioAndHeadphonesCollection{
+        items{
+          sys{id
+          }
+          image{url
+          }
+          description,
+          price,
+          model,
+          __typename,
+        }
+      }
+    cameraAndPhotographyCollection{
+        items{
+          sys{id
+          }
+          image{url
+          }
+          description,
+          price,
+          model,
+          __typename,
+        }
+      }
+  	homeAppliancesCollection{
+        items{
+          sys{id
+          }
+          image{url
+          }
+          description,
+          price,
+          model,
+          __typename,
+        }
+      }
+  	laptopsAndComputersCollection{
+        items{
+          sys{id
+          }
+          image{url
+          }
+          description,
+          price,
+          model,
+          __typename,
+        }
+      }
+  	wearableTechnologyCollection{
+        items{
+          sys{id
+          }
+          image{url
+          }
+          description,
+          price,
+          model,
+          __typename,
+        }
+      }
   }
 `;
 
@@ -56,12 +119,18 @@ interface Product {
   description: string;
   model: string;
   price: string;
+  __typename: string;
 }
 
 export default function Page() {
   const [smartphones, setSmartphones] = useState<Product[]>([]);
   const [gamingDevices, setGamingDevices] = useState<Product[]>([]);
   const [electronics, setElectronics] = useState<Product[]>([]);
+  const [audioAndHeadphones, setAudioAndHeadphones] = useState<Product[]>([]);
+  const [cameraAndPhotography, setCameraAndPhotography] = useState<Product[]>([]);
+  const [homeAppliances, setHomeAppliances] = useState<Product[]>([]);
+  const [laptopsAndComputers, setLaptopsAndComputers] = useState<Product[]>([]);
+  const [wearableTechnology, setWearableTechnology] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
@@ -86,10 +155,14 @@ export default function Page() {
       try {
         const response = await fetchGraphQL(query);
         const data = await response.json();
-        console.log(data);
         setSmartphones(data.data.smartphonesCollection.items);
         setGamingDevices(data.data.gamingDevicesCollection.items);
         setElectronics(data.data.electronicsPartsCollection.items);
+        setAudioAndHeadphones(data.data.audioAndHeadphonesCollection.items);
+        setCameraAndPhotography(data.data.cameraAndPhotographyCollection.items);
+        setHomeAppliances(data.data.homeAppliancesCollection.items);
+        setLaptopsAndComputers(data.data.laptopsAndComputersCollection.items);
+        setWearableTechnology(data.data.wearableTechnologyCollection.items);
         setLoading(false);
         return data;
       } catch (error) {
@@ -111,50 +184,95 @@ export default function Page() {
     );
   }
 
-   const allProducts = [...smartphones, ...gamingDevices, ...electronics];
-    const filteredProducts = allProducts.filter(product =>
+  
+  const allProducts = [...smartphones, ...gamingDevices, ...electronics, ...audioAndHeadphones, ...cameraAndPhotography, ...homeAppliances, ...laptopsAndComputers, ...wearableTechnology];
+  const filteredProducts = allProducts.filter(product =>
     product.model.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    );
 
   let displayedProducts = filteredProducts;
 
-  if (filter === 'Phone') {
-    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
-  } else if (filter === 'Console') {
-    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
-  } else if (filter === 'Chip') {
-    displayedProducts = filteredProducts.filter(product => product.description.toLowerCase().includes(filter.toLowerCase()));
+  if (filter) {
+    displayedProducts = filteredProducts.filter(product => product.__typename.toLowerCase() === filter.toLowerCase());
   }
 
   return (
     <div className="container mx-auto px-4 my-5">
-      <input
-        type="text"
-        placeholder="Search..."
-        className="w-full p-2 mb-4 border rounded text-black"
-        onChange={event => setSearchTerm(event.target.value)}
+    <input
+      type="text"
+      placeholder="Search..."
+      className="w-full p-2 mb-4 border rounded text-black"
+      onChange={event => setSearchTerm(event.target.value)}
       />
-
-      <div className="mb-4 flex justify-center">
-        <button
-          className="mr-2 py-2 px-4 border rounded text-black"
-          onClick={() => setFilter(filter === 'Phone' ? '' : 'Phone')}
+      
+      <div className="mb-4 flex justify-center lg:hidden">
+        <select
+          className="w-full p-2 border rounded text-black bg-white shadow appearance-none"
+          value={filter}
+          onChange={event => setFilter(event.target.value)}
         >
-          Phone
-        </button>
-        <button
-          className="mr-2 py-2 px-4 border rounded text-black"
-          onClick={() => setFilter(filter === 'Console' ? '' : 'Console')}
-        >
-          Console
-        </button>
-        <button
-          className="py-2 px-4 border rounded text-black"
-          onClick={() => setFilter(filter === 'Chip' ? '' : 'Chip')}
-        >
-          Chip
-        </button>
+          <option value="">All</option>
+          <option value="smartphones">Smartphones</option>
+          <option value="gamingdevices">Gaming Devices</option>
+          <option value="electronicsparts">Electronics Parts</option>
+          <option value="audioandheadphones">Audio and Headphones</option>
+          <option value="cameraandphotography">Camera and Photography</option>
+          <option value="homeappliances">Home Appliances</option>
+          <option value="laptopsandcomputers">Laptops And Computers</option>
+          <option value="wearabletechnology">Wearable Technology</option>
+        </select>
       </div>
+
+    <div className="mb-4 justify-center hidden lg:flex">
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'smartphones' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'smartphones' ? '' : 'smartphones')}
+      >
+        Smartphones
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'gamingdevices' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'gamingdevices' ? '' : 'gamingdevices')}
+      >
+        Gaming Devices
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'electronicsparts' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'electronicsparts' ? '' : 'electronicsparts')}
+      >
+        Electronics Parts
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'audioandheadphones' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'audioandheadphones' ? '' : 'audioandheadphones')}
+      >
+        Audio and Headphones
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'cameraandphotography' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'cameraandphotography' ? '' : 'cameraandphotography')}
+      >
+        Camera and Photography
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'homeappliances' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'homeappliances' ? '' : 'homeappliances')}
+      >
+        Home Appliances
+      </button>
+      <button
+        className={`mr-2 py-2 px-4 border rounded text-black ${filter === 'laptopsandcomputers' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'laptopsandcomputers' ? '' : 'laptopsandcomputers')}
+      >
+        Laptops And Computers
+      </button>
+      <button
+        className={`py-2 px-4 border rounded text-black ${filter === 'wearabletechnology' ? 'bg-blue-500' : ''}`}
+        onClick={() => setFilter(filter === 'wearabletechnology' ? '' : 'wearabletechnology')}
+      >
+        Wearable Technology
+      </button>
+    </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {displayedProducts.length > 0 ? (
