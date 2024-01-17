@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export const space_id = "t4hj2gedy0mq";
-export const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
+const space_id = "t4hj2gedy0mq";
+const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
 
 const query = `
 query Products{
