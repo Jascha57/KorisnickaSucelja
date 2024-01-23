@@ -1,5 +1,6 @@
 'use client';
 
+
 import { Forum } from '../page';
 import { useState, useEffect } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
