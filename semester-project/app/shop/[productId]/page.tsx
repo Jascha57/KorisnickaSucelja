@@ -3,7 +3,6 @@
 import { Product } from '../page';
 import { useState, useEffect } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import Image from 'next/image'
 
 const space_id = "t4hj2gedy0mq";
 const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";

@@ -1,25 +1,59 @@
-import { Post } from "../page";
+'use client';
 
-interface Params {
-  forumId: string;
-}
+import { Forum } from '../page';
+import { useState, useEffect } from 'react';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-const BASE_API_URL = "https://my-json-server.typicode.com";
+const space_id = "t4hj2gedy0mq";
+const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
 
-const getPost = async (id: string): Promise<Post> => {
-  const data = await fetch(`${BASE_API_URL}/dmarti01/json_test/posts/${id}`);
-  return data.json();
-};
+export default function ForumDetails({ params }: { params: { forumId: string } }) {
+  const [forum, setForum] = useState<Forum | null>(null);
 
-export default async function BlogPost({ params }: { params: Params }) {
-  const post = await getPost(params.forumId);
+  const query = `
+  query GetForumById($forumId: String!) {
+    forumsCollection(where: {sys: {id: $forumId} } ){
+      items{
+        sys{id}
+        title
+        content{
+          json
+        }
+      }
+    }
+  }
+  `;
+
+  useEffect(() => {
+    fetch(`https://graphql.contentful.com/content/v1/spaces/${space_id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`
+      },
+      body: JSON.stringify({ query, variables: { forumId: params.forumId } }) // Change productId to forumId
+    })
+    .then(response => response.json())
+    .then(({ data }) => {
+      if (data && data.forumsCollection && data.forumsCollection.items.length > 0) {
+        setForum(data.forumsCollection.items[0]);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }, [params.forumId]);
+
+  if (!forum) {
+    return <div>Loading...</div>;
+  }
+
+  const richTextComponents = documentToReactComponents(forum.content.json);
 
   return (
-    <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-      <h1 className="text-3xl font-bold p-10 capitalize text-black">
-        <span className="text-black">Post {post.id}:</span> {post.title}
-      </h1>
-      <p className="text-xl p-10 text-black">{post.body}</p>
-    </main>
+    <div className="space-y-4">
+      <div className="bg-white shadow-lg rounded-lg max-w-xl mx-auto p-4">
+        <h2 className="text-lg text-black font-semibold text-center">{forum.title}</h2>
+      <div className="text-center rich-text-styling">{richTextComponents}</div>
+    </div>
+  </div>
   );
 }
