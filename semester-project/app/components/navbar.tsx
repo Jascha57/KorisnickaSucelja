@@ -267,8 +267,24 @@ function NavList() {
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
       </Typography>
-      <Shop />
-      <TechReviews />
+      <Typography
+        as={Link}
+        href="/shop"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Shop</ListItem>
+      </Typography>
+      <Typography
+        as={Link}
+        href="/tech-reviews"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Tech Reviews</ListItem>
+      </Typography>
       <Typography
         as={Link}
         href="/tech-support"
@@ -276,9 +292,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Tech Support
-        </ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Tech Support</ListItem>
       </Typography>
       <Typography
         as={Link}
