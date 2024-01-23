@@ -46,7 +46,13 @@ export default function ProductDetails({ params }: { params: { productId: string
   }, [params.productId]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-black font-bold text-4xl mx-auto my-10">
+          Loading...
+        </h1>
+      </div>
+    );
   }
 
   const richTextComponents = documentToReactComponents(product.description.json);

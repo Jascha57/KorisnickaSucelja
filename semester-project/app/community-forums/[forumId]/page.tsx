@@ -43,7 +43,13 @@ export default function ForumDetails({ params }: { params: { forumId: string } }
   }, [params.forumId]);
 
   if (!forum) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-black font-bold text-4xl mx-auto my-10">
+          Loading...
+        </h1>
+      </div>
+    );
   }
 
   const richTextComponents = documentToReactComponents(forum.content.json);
