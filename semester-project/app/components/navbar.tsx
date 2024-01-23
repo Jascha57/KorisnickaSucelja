@@ -88,7 +88,7 @@ export default function NavbarWithMegaMenu() {
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
-          <span className="text-blue-600 font-extrabold">Anode</span>&<span className="text-amber-600 font-extrabold">Cathode</span>
+          <img src="./logo.svg" alt="logo" className="h-16 w-16" />
         </Typography>
         <div className="hidden lg:block">
           <NavList />

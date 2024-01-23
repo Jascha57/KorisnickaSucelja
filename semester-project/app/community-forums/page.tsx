@@ -114,13 +114,13 @@ export default async function Blog({
         </div>
       )}
 
-      <ul className="flex flex-col gap-8">
+      <ul className="flex flex-col gap-8 w-full">
         {posts.map((post) => (
-            <Link href={`community-forums/${post.id.toString()}`} className="text-2xl text-black hover:text-gray-700">
-          <li className="bg-white shadow-lg rounded-lg p-4 w-full md:w-96">
+          <Link href={`community-forums/${post.id.toString()}`} className="text-2xl text-black hover:text-gray-700">
+            <li className="bg-white shadow-lg rounded-lg p-4 w-full text-center">
               Topic: {post.title}
-          </li>
-            </Link>
+            </li>
+          </Link>
         ))}
       </ul>
     </main>
