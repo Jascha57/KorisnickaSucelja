@@ -116,11 +116,11 @@ export default async function Blog({
 
       <ul className="flex flex-col gap-8">
         {posts.map((post) => (
-          <li key={post.id} className="bg-white shadow-lg rounded-lg p-4">
-            <Link href={`community-forums/${post.id.toString()}`} className="text-2xl text-purple-500 hover:text-purple-700">
-              Topic {post.title}
-            </Link>
+            <Link href={`community-forums/${post.id.toString()}`} className="text-2xl text-black hover:text-gray-700">
+          <li className="bg-white shadow-lg rounded-lg p-4 w-full md:w-96">
+              Topic: {post.title}
           </li>
+            </Link>
         ))}
       </ul>
     </main>
