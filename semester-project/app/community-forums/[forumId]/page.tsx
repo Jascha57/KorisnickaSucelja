@@ -7,8 +7,6 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 const space_id = "t4hj2gedy0mq";
 const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
 
-// ... (existing imports)
-
 interface Comment {
   sys: {
     id: string;
@@ -21,8 +19,6 @@ interface Comment {
     };
   };
 }
-
-// ... (existing code)
 
 export default function ForumDetails({ params }: { params: { forumId: string } }) {
   const [forum, setForum] = useState<Forum | null>(null);
@@ -175,8 +171,8 @@ export default function ForumDetails({ params }: { params: { forumId: string } }
       {/* Comment Form */}
       <div className="mt-4 text-black">
         <h3 className="text-lg font-semibold mb-2 text-black text-center">Write a Comment</h3>
-        <form onSubmit={handleCommentSubmit} className="max-w-md mx-auto">
-          <div className="mb-4">
+        <form onSubmit={handleCommentSubmit} className="max-w-md mx-auto text-center">
+          <div className="mb-4 text-center">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Your Name:
             </label>
@@ -204,7 +200,7 @@ export default function ForumDetails({ params }: { params: { forumId: string } }
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            className="px-4 py-2 my-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
           >
             Submit Comment
           </button>
