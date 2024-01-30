@@ -58,23 +58,29 @@ export default function Page() {
 
   return (
     <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-      <h1 className="text-3xl font-bold p-10 text-black">Our tech reviews:</h1>
-      <ul className="flex flex-col gap-8 w-full">
-        {reviews.map((review) => (
-          <Link 
-            key={review.sys.id} 
-            href={`tech-reviews/${review.sys.id}`} 
-            className="text-2xl text-black hover:text-gray-700"
-          >
-            <li className="bg-white shadow-lg rounded-lg p-4 w-full text-center">
-              <h2>{review.productName}</h2>
-              <p>Reviewed by: {review.reviewerName}</p>
-              <p>Rating: {review.rating}</p>
-              <p>{review.reviewDescription}</p>
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </main>
+  <h1 className="text-3xl font-bold p-10 text-black">Our tech reviews:</h1>
+  <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+    {reviews.map((review) => (
+      <Link 
+      key={review.sys.id} 
+      href={`tech-reviews/${review.sys.id}`} 
+      className="text-2xl text-black hover:text-gray-700"
+    >
+      <li className="bg-gray-100 shadow-lg rounded-lg p-4 w-128 h-64 text-center">
+        <h2 className="text-xl font-bold mb-2">{review.productName}</h2>
+        <p className="text-sm text-gray-500 mb-2">Reviewed by: {review.reviewerName}</p>
+        <div className="mb-2">
+          {Array.from({ length: 5 }, (_, index) => (
+            <span key={index} className="text-yellow-700">
+              {review.rating > index ? '★' : '☆'}
+            </span>
+          ))}
+        </div>
+        <p className="text-black-700">{review.reviewDescription}</p>
+      </li>
+    </Link>
+    ))}
+  </ul>
+</main>
   );
 }

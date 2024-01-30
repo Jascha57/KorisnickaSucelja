@@ -61,7 +61,13 @@ export default function ReviewDetails({ params }: { params: { reviewId: string }
     <div>
       <h1>{review.productName}</h1>
       <h2>Reviewed by: {review.reviewerName}</h2>
-      <p>Rating: {review.rating}</p>
+      <div>
+        {Array.from({ length: 5 }, (_, index) => (
+          <span key={index}>
+            {review.rating > index ? '★' : '☆'}
+          </span>
+        ))}
+      </div>
       <p>{review.reviewDescription}</p>
     </div>
   );
