@@ -1,3 +1,4 @@
+'use client';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useEffect, useState } from 'react';
 

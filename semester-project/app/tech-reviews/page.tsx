@@ -50,8 +50,8 @@ export default function Page() {
         }
   
         // Set the reviews in state
-        if (data && data.reviewsCollection) {
-          setReviews(data.reviewsCollection.items);
+        if (data && data.reviewCollection) {
+          setReviews(data.reviewCollection.items);
         }
       });
   }, []);
