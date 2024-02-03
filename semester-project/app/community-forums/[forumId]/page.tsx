@@ -91,51 +91,27 @@ export default function ForumDetails({ params }: { params: { forumId: string } }
 
   const handleCommentSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    // Save new comment to Contentful
-    const mutation = `
-      mutation CreateComment($name: String!, $content: String!, $forumId: String!) {
-        createComment(data: {
-          name: $name,
-          content: $content,
-          forumReference: {
-            connect: {
-              sys: {
-                id: $forumId
-              }
-            }
-          }
-        }) {
-          sys { id }
-          name
-          content
-        }
-      }
-    `;
-
-    fetch(`https://graphql.contentful.com/content/v1/spaces/${space_id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`
+    if (newComment.name.trim() === '' || newComment.content.trim() === '') {
+    alert('Both fields are required.');
+    return;
+  }
+  // Create a new comment
+  const newCommentData: Comment = {
+    sys: { id: Date.now().toString() }, // Use the current timestamp as a temporary ID
+    name: newComment.name,
+    content: newComment.content,
+    forumReference: {
+      sys: {
+        id: params.forumId,
       },
-      body: JSON.stringify({
-        query: mutation,
-        variables: {
-          name: newComment.name,
-          content: newComment.content,
-          forumId: params.forumId
-        }
-      })
-    })
-      .then(response => response.json())
-      .then(({ data }) => {
-        if (data && data.createComment) {
-          setComments([...comments, data.createComment]);
-          setNewComment({ name: '', content: '' });
-        }
-      })
-      .catch(error => console.error('Error creating comment:', error));
+    },
+  };
+
+  // Add the new comment to the local state
+  setComments([...comments, newCommentData]);
+
+  // Reset the form
+  setNewComment({ name: '', content: '' });
   };
 
   if (!forum) {
