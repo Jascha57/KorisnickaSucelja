@@ -127,7 +127,10 @@ export default function Page() {
         type="text"
         placeholder="Search..."
         className="w-full p-2 mb-4 border rounded text-black"
-        onChange={event => setSearchTerm(event.target.value)}
+        onChange={event => {
+          setSearchTerm(event.target.value);
+          setCurrentPage(1);
+        }}
       />
 
       <div className="mb-4 flex justify-center lg:hidden">
