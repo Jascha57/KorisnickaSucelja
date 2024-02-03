@@ -5,11 +5,11 @@ import LandingPageCatalog from './components/landingPage/landingPageCatalog';
 
 const Home = () => {
   return (
-    <main className="container mx-auto p-4">
+    <div className="container mx-auto p-4">
       <ProductSection />
       <LandingPageCatalog />
       <CompanyCards />
-    </main>
+    </div>
   );
 };
 

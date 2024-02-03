@@ -18,6 +18,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
 }
 
 .rich-text-styling{
