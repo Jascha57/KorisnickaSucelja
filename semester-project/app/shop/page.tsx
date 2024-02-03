@@ -50,6 +50,8 @@ export default function Page() {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(9);
 
   async function fetchGraphQL(query: string) {
     return fetch(
@@ -93,6 +95,9 @@ export default function Page() {
     );
   }
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const allProducts = [...products];
   const filteredProducts = allProducts.filter(product =>
     product.model.toLowerCase().includes(searchTerm.toLowerCase())
@@ -105,9 +110,16 @@ export default function Page() {
 
   let displayedProducts = filteredProducts;
 
+  
+  
   if (filter) {
     displayedProducts = filteredProducts.filter(product => product.type.toLowerCase() === filter.toLowerCase());
   }
+  // Slice the array of products to get only the products for the current page
+  const currentItems = displayedProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(displayedProducts.length / itemsPerPage);
 
   return (
     <div className="container mx-auto px-4 my-5">
@@ -120,7 +132,10 @@ export default function Page() {
 
       <div className="mb-4 flex justify-center lg:hidden">
         <select
-          onChange={event => setFilter(event.target.value)}
+          onChange={event => {
+            setFilter(event.target.value);
+            setCurrentPage(1);
+          }}
           className="w-full p-2 border rounded text-black"
         >
           <option value="">All</option>
@@ -140,17 +155,20 @@ export default function Page() {
         {uniqueProductTypes.map((type, index) => (
           <button
             key={index}
-            onClick={() => setFilter(type)}
+            onClick={() => {
+              setFilter(type);
+              setCurrentPage(1);
+            }}
             className={`p-2 mx-1 border rounded text-black ${filter === type ? 'bg-blue-500' : ''}`}
           >
             {type}
           </button>
         ))}
       </div>
-
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {displayedProducts.length > 0 ? (
-          displayedProducts.map(product => (
+        {currentItems.length > 0 ? (
+          currentItems.map(product => (
             <Link href={`/shop/${product.sys.id}`} key={product.sys.id}>
               <div key={product.sys.id} className="border rounded p-4">
                 <img src={product.image.url} alt={product.model} className="w-full h-64 object-cover mb-4" />
@@ -166,6 +184,25 @@ export default function Page() {
           </h1>
         )}
       </div>
+        <div className="flex justify-center my-4 text-black">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 border border-gray-300 rounded-lg mr-2 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}`}
+          >
+            Previous
+          </button>
+          <span className="self-center">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 border border-gray-300 rounded-lg ml-2 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}`}
+          >
+            Next
+          </button>
+        </div>
     </div>
   );
 }
