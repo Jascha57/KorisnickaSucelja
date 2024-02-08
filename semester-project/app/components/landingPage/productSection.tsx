@@ -86,10 +86,11 @@ const ProductSection = () => {
   };
 
   useEffect(() => {
+  if (slides.length > 0) {
     const timer = setInterval(nextSlide, 5000);
-
     return () => clearInterval(timer);
-  }, [currentSlide]);
+  }
+}, [slides, currentSlide]);
 
   return (
     <section>
