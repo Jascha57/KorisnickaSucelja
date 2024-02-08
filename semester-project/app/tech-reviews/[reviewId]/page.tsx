@@ -2,8 +2,8 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useEffect, useState } from 'react';
 
-const space_id = "t4hj2gedy0mq";
-const access_token = "EUJX-F3b-rBsOurVaY_YB4M4uxzTo9eBRM6Fuooret0";
+const space_id = process.env.NEXT_PUBLIC_SPACE_ID;
+const access_token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
 interface Review {
   sys: {

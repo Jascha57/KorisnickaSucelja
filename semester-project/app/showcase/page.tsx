@@ -5,6 +5,3 @@ export default function Showcase() {
         </main>
     )
 }
-
-// Drugi nacin
-// export default Showcase;
