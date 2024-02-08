@@ -13,6 +13,7 @@ interface Review {
   reviewerName: string;
   rating: number;
   reviewDescription: string;
+  date: string;
 }
 
 export default function ReviewDetails({ params }: { params: { reviewId: string } }) {
@@ -29,6 +30,7 @@ export default function ReviewDetails({ params }: { params: { reviewId: string }
           reviewerName
           rating
           reviewDescription
+          date
         }
       }
     }

@@ -16,6 +16,7 @@ query {
         reviewerName
         rating
         reviewDescription
+        date
       }
     }
   }
@@ -29,6 +30,7 @@ export interface Review {
     reviewerName: string;
     rating: number;
     reviewDescription: string;
+    date: string;
   }
 
 export default function Page() {
@@ -59,16 +61,17 @@ export default function Page() {
   return (
     <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
   <h1 className="text-3xl font-bold p-10 text-black">Our tech reviews:</h1>
-  <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+  <ul className="flex flex-wrap justify-center items-stretch grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
     {reviews.map((review) => (
       <Link 
       key={review.sys.id} 
-      href={`tech-reviews/${review.sys.id}`} 
+      href={``} 
       className="text-2xl text-black hover:text-gray-700"
     >
-      <li className="bg-gray-100 shadow-lg rounded-lg p-4 w-128 h-64 text-center">
+      <li className="flex flex-col bg-gray-100 shadow-lg rounded-lg p-4 w-128 h-full text-center">
         <h2 className="text-xl font-bold mb-2">{review.productName}</h2>
         <p className="text-sm text-gray-500 mb-2">Reviewed by: {review.reviewerName}</p>
+        <p className="text-sm text-gray-500 mb-2">on date: {new Date(review.date).toLocaleDateString('en-GB')}</p>
         <div className="mb-2">
           {Array.from({ length: 5 }, (_, index) => (
             <span key={index} className="text-yellow-700">
@@ -76,7 +79,7 @@ export default function Page() {
             </span>
           ))}
         </div>
-        <p className="text-black-700">{review.reviewDescription}</p>
+        <p className="flex-grow text-black-700 font-mono">{review.reviewDescription}</p>
       </li>
     </Link>
     ))}
