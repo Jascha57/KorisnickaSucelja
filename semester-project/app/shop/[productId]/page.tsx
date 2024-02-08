@@ -70,7 +70,9 @@ export default function ProductDetails({ params }: { params: { productId: string
       </div>
     </div>
     <div className="bg-white shadow-lg rounded-lg max-w-xl mx-auto p-4">
-      <div className="text-center rich-text-styling">{richTextComponents}</div>
+        <article className="prose md:prose-lg lg:prose-xl prose-headings:">
+          {richTextComponents}
+      </article>
     </div>
   </div>
   );

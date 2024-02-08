@@ -31,54 +31,6 @@ footer {
   flex-shrink: 0;
 }
 
-.rich-text-styling{
-  color: black;
-}
-
-.rich-text-styling h1{
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling h2{
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 2rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling h3{
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling h4{
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling h5{
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling h6{
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1rem;
-  margin-bottom: 1rem;
-}
-
-.rich-text-styling p{
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  margin-bottom: 1.75rem;
+.prose {
+  text-align: center;
 }
