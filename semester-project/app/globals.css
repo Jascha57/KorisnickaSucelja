@@ -34,3 +34,12 @@ footer {
 .prose {
   text-align: center;
 }
+
+.navbar-path-selected {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    90deg,
+    rgba(var(--background-start-rgb), 1) 0%,
+    rgba(var(--background-end-rgb), 1) 100%
+  );
+}

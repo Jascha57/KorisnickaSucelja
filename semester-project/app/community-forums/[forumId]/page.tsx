@@ -130,7 +130,9 @@ export default function ForumDetails({ params }: { params: { forumId: string } }
     <div className="space-y-4">
       <div className="bg-white shadow-lg rounded-lg max-w-xl mx-auto p-4">
         <h2 className="text-lg text-black font-semibold text-center">{forum.title}</h2>
-        <div className="text-center rich-text-styling">{richTextComponents}</div>
+        <article className="prose md:prose-lg lg:prose-xl prose-headings:">
+          {richTextComponents}
+        </article>
       </div>
 
       {/* Display Comments */}
