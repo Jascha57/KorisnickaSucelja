@@ -172,7 +172,7 @@ export default function Page() {
           currentItems.map(product => (
             <Link href={`/shop/${product.sys.id}`} key={product.sys.id}>
               <div key={product.sys.id} className="border rounded p-4">
-                <img src={product.image.url} alt={product.model} className="w-full h-64 object-cover mb-4" />
+                <img src={product.image.url} alt={product.model} className="w-full h-64 object-scale-down mb-4" />
                 <h2 className="text-lg font-semibold mb-2 text-black">{product.model}</h2>
                 <p className="text-gray-600">{product.shortDescription}</p>
                 <p className="text-gray-900 font-bold">${product.price}</p>
