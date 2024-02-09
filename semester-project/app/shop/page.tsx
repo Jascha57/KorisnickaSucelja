@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { addToCart, removeFromCart, getCart } from '../utils'
 
 const space_id = process.env.NEXT_PUBLIC_SPACE_ID;
 const access_token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
@@ -52,6 +53,7 @@ export default function Page() {
   const [filter, setFilter] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(9);
+  const [cart, setCart] = useState<string[]>([]);
 
   async function fetchGraphQL(query: string) {
     return fetch(
@@ -73,6 +75,7 @@ export default function Page() {
       try {
         const response = await fetchGraphQL(query);
         const data = await response.json();
+        setCart(getCart());
         setProducts(data.data.productCollection.items);
         setLoading(false);
         return data;
@@ -118,6 +121,16 @@ export default function Page() {
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(displayedProducts.length / itemsPerPage);
+
+  const handleAddToCart = (productId: string) => {
+    addToCart(productId);
+    setCart(getCart());
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
+    setCart(getCart());
+  };
 
   return (
     <div className="container mx-auto px-4 my-5">
@@ -165,26 +178,44 @@ export default function Page() {
             {type}
           </button>
         ))}
+
+      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {currentItems.length > 0 ? (
+            currentItems.map(product => {
+              const cart = getCart();
+              const isInCart = cart.includes(product.sys.id);
+
+              return (
+                <div key={product.sys.id} className="border rounded p-4">
+                  <Link href={`/shop/${product.sys.id}`}>
+                    <img src={product.image.url} alt={product.model} className="w-full h-64 object-scale-down mb-4" />
+                    <h2 className="text-lg font-semibold mb-2 text-black">{product.model}</h2>
+                    <p className="text-gray-600">{product.shortDescription}</p>
+                    <p className="text-gray-900 font-bold">${product.price}</p>
+                  </Link>
+                  <button 
+                    className={`font-extrabold py-2 px-4 border border-black rounded ${isInCart ? 'bg-red-600 hover:bg-red-700' : 'bg-amber-600 hover:bg-blue-600'} text-white`} 
+                    onClick={() => {
+                      if (isInCart) {
+                        handleRemoveFromCart(product.sys.id);
+                      } else {
+                        handleAddToCart(product.sys.id);
+                      }
+                    }}
+                  >
+                    {isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                  </button>
+                </div>
+              );
+            })
+          ) : (
+            <h1 className="text-black font-bold text-4xl mx-auto my-10 col-span-3 h-screen">
+              No matches found
+            </h1>
+          )}
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {currentItems.length > 0 ? (
-          currentItems.map(product => (
-            <Link href={`/shop/${product.sys.id}`} key={product.sys.id}>
-              <div key={product.sys.id} className="border rounded p-4">
-                <img src={product.image.url} alt={product.model} className="w-full h-64 object-scale-down mb-4" />
-                <h2 className="text-lg font-semibold mb-2 text-black">{product.model}</h2>
-                <p className="text-gray-600">{product.shortDescription}</p>
-                <p className="text-gray-900 font-bold">${product.price}</p>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <h1 className="text-black font-bold text-4xl mx-auto my-10 col-span-3 h-screen">
-            No matches found
-          </h1>
-        )}
-      </div>
         <div className="flex justify-center my-4 text-black">
           <button
             onClick={() => setCurrentPage(currentPage - 1)}

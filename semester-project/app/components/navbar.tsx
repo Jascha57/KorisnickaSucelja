@@ -12,9 +12,11 @@ import {
 import {
   Bars3Icon,
   XMarkIcon,
+  ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import { getCart } from '../utils';
 
 function NavList() {
   const pathname = usePathname();
@@ -54,12 +56,20 @@ function NavList() {
 
 export default function NavbarWithMegaMenu() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [cart, setCart] = React.useState<string[]>([]);
 
   React.useEffect(() => {
+    setCart(getCart());
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+    const handleCartChange = () => {
+      setCart(getCart());
+    };
+
+    window.addEventListener('cartChange', handleCartChange);
+    return () => window.removeEventListener('cartChange', handleCartChange);
   }, []);
 
   return (
@@ -75,6 +85,10 @@ export default function NavbarWithMegaMenu() {
         </Typography>
         <div className="hidden lg:block">
           <NavList />
+        </div>
+        <div className="flex items-center">
+          <ShoppingCartIcon className="h-6 w-6" />
+          <span className="ml-2">{cart.length}</span>
         </div>
         <IconButton
           variant="text"
