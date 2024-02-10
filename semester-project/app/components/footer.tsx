@@ -34,12 +34,12 @@ const Footer: React.FC = () => {
                 <div>
                     <h1 className="text-white font-extrabold mb-5">Social</h1>
                     <div className="grid grid-cols-6 gap-4 place-items-center">
-                        <a href="#" className='inline col-span-1 text-3xl'><FaFacebook /></a>
-                        <a href="#" className='inline col-span-1 text-3xl'><FaTwitter /></a>
-                        <a href="#" className='inline col-span-1 text-3xl'><FaInstagram /></a>
-                        <a href="#" className='inline col-span-1 text-3xl'><FaYoutube /></a>
-                        <a href="#" className='inline col-span-1 text-3xl'><FaLinkedin /></a>
-                        <a href="#" className='inline col-span-1 text-3xl'><FaGithub /></a>
+                        <a href="https://www.facebook.com" target="_blank" className='inline col-span-1 text-3xl'><FaFacebook /></a>
+                        <a href="https://twitter.com" target="_blank" className='inline col-span-1 text-3xl'><FaTwitter /></a>
+                        <a href="https://www.instagram.com" target="_blank" className='inline col-span-1 text-3xl'><FaInstagram /></a>
+                        <a href="https://www.youtube.com" target="_blank" className='inline col-span-1 text-3xl'><FaYoutube /></a>
+                        <a href="https://www.linkedin.com" target="_blank" className='inline col-span-1 text-3xl'><FaLinkedin /></a>
+                        <a href="https://github.com" target="_blank" className='inline col-span-1 text-3xl'><FaGithub /></a>
                     </div>
                 </div>
             </div>

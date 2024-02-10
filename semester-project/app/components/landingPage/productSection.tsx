@@ -71,6 +71,7 @@ const ProductSection = () => {
   }, [query]);
 
   const slides = data.productCollection?.items.map((item: any) => ({
+    id: item.sys.id,
     title: item.model,
     shortDescription: item.shortDescription,
     imageUrl: item.image.url,
@@ -109,9 +110,6 @@ const ProductSection = () => {
                   <Link className="bg-transparent hover:bg-blue-500 text-blue-600 font-semibold hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" href={`/shop/${slides[currentSlide].id}`}>
                       Learn More
                   </Link>
-                  <button className="bg-amber-600 hover:bg-blue-600 text-white font-extrabold py-2 px-4 border border-black rounded">
-                    Add to Cart
-                  </button>
                 </div>
               </div>
               <div className="mb-12 lg:mb-0 relative">

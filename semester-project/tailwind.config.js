@@ -8,9 +8,10 @@ module.exports = withMT({
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography'),],
+  plugins: [require('@tailwindcss/typography'), require('flowbite/plugin'),],
 });
