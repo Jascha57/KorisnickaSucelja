@@ -1,82 +1,119 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
+const space_id = process.env.NEXT_PUBLIC_SPACE_ID;
+const access_token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+
+const query = `
+  query Support {
+    support2Collection {
+      items {
+        sys {
+          id
+        }
+        name
+        image {
+          url
+        }
+        linksCollection {
+          items {
+            ... on Link {
+              sys {
+                id
+              }
+              title
+              content {
+                json
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export interface Link {
+  sys: {
+    id: string;
+  };
+  title: string;
+  content: {
+    json: any;
+  };
+}
+
+export interface Support {
+  sys: {
+    id: string;
+  };
+  image: {
+    url: string;
+  };
+  name: string;
+  linksCollection: {
+    items: Link[];
+  };
+}
 
 export default function TechSupport() {
-  const [activeLink, setActiveLink] = useState<{ [key: number]: number | null }>({});
+  const [supportData, setSupportData] = useState<Support[]>([]);
+  const [selectedLink, setSelectedLink] = useState<Link | null>(null);
+  const [activeLink, setActiveLink] = useState<{ [key: string]: boolean }>({});
 
-  const groups = [
-    {
-      title: 'ORDERING',
-      links: [
-        { title: 'Tracking your order', content: 'Information about how to track your order.' },
-        { title: 'Payment methods', content: 'We accept credit card, debit card, and PayPal.' },
-        { title: 'Refund and return policies', content: 'You can return items within 30 days for a full refund.' },
-      ],
-    },
-    {
-      title: 'ACCOUNT',
-      links: [
-        { title: 'Creating account', content: 'Click on "Sign Up" to create a new account.' },
-        { title: 'Resetting password', content: 'Click on "Forgot Password" to reset your password.' },
-      ],
-    },
-    {
-      title: 'SHIPPING',
-      links: [
-        { title: 'Shipping options', content: 'We offer standard, expedited, and overnight shipping.' },
-        { title: 'Tracking shipments', content: 'You can track your shipment through your account.' },
-        { title: 'Address and delivery issues', content: 'Contact our support team for any delivery issues.' },
-      ],
-    },
-    {
-      title: 'WARRANTY',
-      links: [
-        { title: 'Product warranty', content: 'All our products come with a 1-year warranty.' },
-        { title: 'Initiating a warranty claim', content: 'Contact our support team to initiate a warranty claim.' },
-      ],
-    },
-    {
-      title: 'CONTACT US',
-      links: [
-        { title: 'Customer Service', content: 'You can reach us at 123-456-7890 or support@example.com.' },
-      ],
-    },
-  ];
-  const handleClick = (groupIndex: number, linkIndex: number) => {
-    setActiveLink((prev: { [key: number]: number | null }) => ({
+  useEffect(() => {
+    fetch(`https://graphql.contentful.com/content/v1/spaces/${space_id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: JSON.stringify({ query }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setSupportData(data.data.support2Collection.items);
+      })
+      .catch(error => console.error("Error fetching Contentful data:", error));
+  }, []);
+
+  const handleClick = (linkId: string) => {
+    setActiveLink((prev) => ({
       ...prev,
-      [groupIndex]: prev[groupIndex] === linkIndex ? null : linkIndex,
+      [linkId]: !prev[linkId],
     }));
   };
+
+  if (!supportData) return <p>Loading...</p>;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-screen-xl w-full px-2">
-        {groups.map((group, groupIndex) => (
-          <div 
-            key={groupIndex} 
-            className="bg-gray-100 shadow-lg rounded-lg p-4"
-          >
-            <h2 className="text-xl font-bold mb-2 text-orange-500">{group.title}</h2>
-            <ul className="text-right">
-              {group.links.map((link, linkIndex) => (
-                <li key={linkIndex} className="mb-1">
-                  <button 
-                    onClick={() => handleClick(groupIndex, linkIndex)}
-                    className="text-blue-500 hover:underline"
-                  >
-                    {link.title}
-                  </button>
-                  {activeLink[groupIndex] === linkIndex && (
-                    <div className="mt-2 bg-white shadow-lg text-black 1rounded-lg p-4">
-                      <p>{link.content}</p>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
+      <ul className="flex flex-wrap justify-center items-stretch grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+        {supportData.map((support) => (
+          <li 
+            key={support.sys.id} 
+            className="flex flex-col bg-gray-100 shadow-lg rounded-lg p-4 w-128 h-full text-right"
+            >
+            <div className="flex items-center justify-left mb-4">
+            <img src={support.image.url} alt="" style={{ width: '65px', height: '65px' }} />
+            <h2 className="text-xl font-bold text-orange-500 ml-4 uppercase">{support.name}</h2>
+            </div>
+            {support.linksCollection.items.map((link) => (
+              <div key={link.sys.id}>
+                <button className="text-blue-500 hover:text-orange-500 transition duration-200" onClick={() => { setSelectedLink(link); handleClick(link.sys.id); }}>
+                  {link.title}
+                </button>
+                {activeLink[link.sys.id] && selectedLink === link && (
+                  <div className="mt-2 bg-gray-300 shadow-lg text-black rounded-lg p-4">
+                    <p>{selectedLink.content.json.content[0].content[0].value}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </li>
         ))}
-      </div>
+      </ul>
     </main>
-    );
-  } // Add this closing curly brace
+  );
+}
