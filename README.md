@@ -3,6 +3,7 @@ https://korisnicka-sucelja-g5ra.vercel.app/
 
 # IZVJEŠTAJ:
 https://fork-pullover-b5e.notion.site/ANODE-CATHODE-3682e8326a174e39b5131b49c4dcb5ec
+
 https://www.notion.so/ANODE-CATHODE-3682e8326a174e39b5131b49c4dcb5ec
 
 # VAŽNO!
