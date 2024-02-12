@@ -76,7 +76,7 @@ export default function ProductDetails({ params }: { params: { productId: string
   <div className="space-y-4">
     <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg max-w-xl mx-auto p-4">
       <div className="flex items-center justify-center md:w-1/2">
-          <img className="h-64 w-full object-scale-down" src={product.image.url} alt={product.model} />
+          <img className="h-64 w-full object-scale-down" loading="lazy" src={product.image.url} alt={product.model} />
         </div>
       <div className="md:w-1/2 flex flex-col justify-center space-y-2">
         <h2 className="text-lg text-black font-semibold text-center">{product.model}</h2>

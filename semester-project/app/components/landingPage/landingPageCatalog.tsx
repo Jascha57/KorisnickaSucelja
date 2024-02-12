@@ -94,7 +94,7 @@ const LandingPageCatalog = () => {
               .filter((item: any) => item.type === category)
               .map((item: any) => (
                 <Link className="flex-shrink-0 w-80 bg-white p-4 rounded-md shadow-md" href={`/shop/${item.sys.id}`} key={item.sys.id}>
-                  <img src={item.image.url} alt={item.model} className="w-full h-40 object-scale-down mb-2 rounded-md" />
+                  <img src={item.image.url} loading="lazy" alt={item.model} className="w-full h-40 object-scale-down mb-2 rounded-md" />
                   <h3 className="text-lg font-semibold mb-2 text-black">{item.model}</h3>
                   <p className="text-gray-500 mb-4">{item.shortDescription}</p>
                 </Link>
