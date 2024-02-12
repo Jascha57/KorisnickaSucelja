@@ -59,8 +59,8 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-  <h1 className="text-3xl font-bold p-10 text-black">Our tech reviews:</h1>
+  <div className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
+  <h1 className="text-3xl font-bold p-10 text-black text-center">Our tech reviews:</h1>
   <ul className="flex flex-wrap justify-center items-stretch grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
     {reviews.map((review) => (
       <Link 
@@ -84,6 +84,6 @@ export default function Page() {
     </Link>
     ))}
   </ul>
-</main>
+</div>
   );
 }

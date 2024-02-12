@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
-  title: "Anode and Kathode",
+  title: "Anode&Cathode",
   description: "Electronics in theory and practice",
 };
 

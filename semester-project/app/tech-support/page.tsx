@@ -96,7 +96,7 @@ export default function TechSupport() {
             className="flex flex-col bg-gray-100 shadow-lg rounded-lg p-4 w-128 h-full text-right"
             >
             <div className="flex items-center justify-left mb-4">
-            <img src={support.image.url} alt="" style={{ width: '65px', height: '65px' }} />
+            <img src={support.image.url} alt={`${support.name} icon`} className="w-10 h-10" />
             <h2 className="text-xl font-bold text-orange-500 ml-4 uppercase">{support.name}</h2>
             </div>
             {support.linksCollection.items.map((link) => (
